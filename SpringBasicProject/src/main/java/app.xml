@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<!-- 클래스 (관리할 클래스 등록)
+		클래스 등록 <bean>, 패키지 단위 <context:component-scan>
+		스프링에 등록해서 사용하는 클래스
+			1. DAO,Manager,Model...
+			2. VO(DTO) => 일반 데이터형 (등록하지 않는다)
+				=====
+					int, double..
+	 -->
+	<bean id="sa" class="com.sist.spring.Sawon" scope="singleton">
+		<property name="sabun" value="1"></property>
+		<property name="name" value="홍길동"></property>
+		<property name="dept" value="개발부"></property>
+	</bean>
+	
+	<bean id="sa1" class="com.sist.spring.Sawon" scope="singleton" init-method="display">
+		<property name="sabun" value="2"></property>
+		<property name="name" value="심청이"></property>
+		<property name="dept" value="총무부"></property>
+	</bean>
+	<bean id="sa2" class="com.sist.spring.Sawon" scope="singleton" init-method="display">
+		<property name="sabun">
+			<value>3</value>
+		</property>
+		<property name="name">
+			<value>강감찬</value>
+		</property>
+		<property name="dept" >
+			<value>총무부</value>
+		</property>
+	</bean>
+
+	<!-- 가장 많이 쓰는 형태  -->
+	<bean id="sa3" class="com.sist.spring.Sawon" 
+			p:sabun="4"
+			p:name="춘향이"
+			p:dept="기획부"/>
+			
+	<!-- 매개변수가 있는 생성자 호출 (DI) -->
+	<bean id="sa4" class="com.sist.spring.Sawon" 
+		c:sabun="5" c:name="광개토" c:dept="건설부"/>
+	
+	<bean id="sa5" class="com.sist.spring.Sawon">
+		<constructor-arg value="6" index="0"/>
+		<constructor-arg value="박문수" index="1"/>
+		<constructor-arg value="자재부" index="2"/>
+	</bean>	
+
+	<bean id="sa6" class="com.sist.spring.Sawon"
+		c:_0="7"
+		c:_1="항우"
+		c:_2="교육부"
+	/>
+
+</beans>
