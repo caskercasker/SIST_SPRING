@@ -64,6 +64,11 @@ h1 {
             	<a href="list.do" class="btn btn-xs btn-info">목록</a>
             </td>
           </tr>
+          <tr>
+          	<td colspan="4">
+          		<img alt="알 이미지" src="${vo.no}.png">
+          	</td>
+          </tr>
          </table>
       </div>
     </div>

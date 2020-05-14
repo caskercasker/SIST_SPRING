@@ -27,5 +27,31 @@ public class DataBoardDAO {
 		mapper.hitIncrement(no);
 		return mapper.databoardDetailData(no);
 	}
+
+	public DataBoardVO databoardUpdateData(int no){
+		return mapper.databoardDetailData(no);
+	}
+
+	public String databoardGetPassword(int no){
+		return mapper.databoardGetPassword(no);
+	}
 	
+	
+	public void databoardUpdate(DataBoardVO vo){
+		mapper.databoardUpdate(vo);
+	}
+	
+	public boolean databoardDelete(int no,String pwd){
+		boolean bCheck=false;
+		String db_pwd=mapper.databoardGetPassword(no);
+		if(db_pwd.equals(pwd)){
+			mapper.databoardDelete(no);
+			bCheck=true;
+		}
+		return bCheck;
+	}
+
+	public DataBoardVO databoardFieInfoData(int no){
+		return mapper.databoardFieInfoData(no);
+	}
 }

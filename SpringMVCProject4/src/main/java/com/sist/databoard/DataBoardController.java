@@ -10,6 +10,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.*;
@@ -17,12 +18,16 @@ import java.util.*;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sist.dao.*;
+import com.sist.manager.RManager;
 
 @Controller
 @RequestMapping("board/")
 public class DataBoardController {
 	@Autowired
 	private DataBoardDAO dao;
+	
+	@Autowired
+	private RManager rm;
 	
 	@RequestMapping("list.do")
 	public String board_list(Model model,String page){
@@ -92,6 +97,7 @@ public class DataBoardController {
 	@RequestMapping("detail.do")
 	public String board_detail(Model model,int no){
 		
+		
 		DataBoardVO vo=dao.databoardDetailData(no);
 		if(vo.getFilecount()>0){
 			StringTokenizer st1 = new StringTokenizer(vo.getFilename(),",");
@@ -106,6 +112,17 @@ public class DataBoardController {
 			}
 			model.addAttribute("fList",fList);
 			model.addAttribute("sList", sList);
+		}
+		//그래프 출력
+		try {
+			FileWriter fw = new FileWriter("c:\\data\\board.txt");
+			fw.write(vo.getContent()+"\r\n");
+			fw.close();
+		
+			rm.rGraph(no);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		model.addAttribute("vo",vo);
@@ -145,6 +162,21 @@ public class DataBoardController {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+	}
+	@RequestMapping("update.do")
+	public String databoard_update(Model model,int no){
 		
+		DataBoardVO vo = dao.databoardUpdateData(no);
+		model.addAttribute("vo",vo);
+		return "board/update";		
+	}
+	
+	
+	//
+	@RequestMapping("delete.do")
+	public String databoard_delete(Model model,int no){
+		
+		model.addAttribute("no",no);
+		return "board/delete";
 	}
 }
