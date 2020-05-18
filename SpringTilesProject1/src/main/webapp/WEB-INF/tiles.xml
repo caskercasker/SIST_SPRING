@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<definition name="main" template="/WEB-INF/main/main.jsp">
+		<put-attribute name="header" value="/WEB-INF/main/header.jsp"/>
+		<put-attribute name="menu" value="/WEB-INF/main/menu.jsp"/>
+		<put-attribute name="content" value="/WEB-INF/main/content.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/main/footer.jsp"/>
+	</definition>
+	<definition name="*/*" extends="main">
+		<put-attribute name="content" value="/WEB-INF/{1}/{2}.jsp"/>
+	</definition>
+	<definition name="*/*/*" extends="main">
+		<put-attribute name="content" value="/WEB-INF/{1}/{2}/{3}.jsp"/>
+	</definition>
+ 	<!-- jsp 구조를 정의하고 있는 main에 
+		요소를 name 값에 따라 요소를 바꿔주는 원리를 사용 한다.?
+		
+		범용으로 처리 하기 위한 세팅은 모든 main의 폴더에서 
+		들어오는 값들을 매핑하여 처리한다.
+	 -->
+</tiles-definitions>
+
