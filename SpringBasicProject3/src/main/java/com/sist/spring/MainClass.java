@@ -26,6 +26,6 @@ public class MainClass {
 					+vo.getJob()+" "
 					+vo.getSal());
 		}
-		
+	
 	}
 }
