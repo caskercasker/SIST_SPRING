@@ -23,7 +23,7 @@ public class MusicController {
 		String result="";
 		List<MusicVO> list = dao.musicListData();
 		
-		//JSON À¸·Î °ªÀ» ³Ñ±â±â [ ]
+		//JSON ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ±ï¿½ï¿½ [ ]
 		JSONArray arr = new JSONArray();
 		for(MusicVO vo:list){
 			JSONObject json = new JSONObject();
@@ -43,5 +43,21 @@ public class MusicController {
 		result = arr.toJSONString();
 		System.out.println(result);
 		return result;
+	}
+	
+	@RequestMapping("main/detail_data.do")
+	public String main_detail(int mno){
+		MusicVO vo = dao.muiscDetailData(mno);
+		JSONObject json = new JSONObject(); //[{mno:1, title:''},{} ]
+		json.put("mno",vo.getMno());
+		json.put("title",vo.getTitle());
+		json.put("singer",vo.getSinger());
+		json.put("album",vo.getAlbum());
+		json.put("state",vo.getState());
+		json.put("idcrement",vo.getMno());
+		json.put("poster",vo.getPoster());
+		json.put("key",vo.getKey());
+		
+		return json.toJSONString();
 	}
 }

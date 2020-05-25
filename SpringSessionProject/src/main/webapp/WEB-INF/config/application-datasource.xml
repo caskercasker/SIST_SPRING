@@ -18,6 +18,12 @@
 		p:username="hr"
 		p:password="happy"
 	/>
+	
+	<tx:annotation-driven proxy-target-class="false"/>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="ds"
+	/>
+	
 	<!-- SqlsessionFactory -->
 	<bean id="ssf"
 		class="org.mybatis.spring.SqlSessionFactoryBean"
@@ -25,10 +31,10 @@
 		/>
 	<!-- SQLsesionTemplate     번들링    -->
 	
-	<!-- Mapper 전송 -->
-	<bean id="musicmapper"
-		class="org.mybatis.spring.mapper.MapperFactoryBean"
+	<!-- Mapper Bean 한번에 등록하는 방식 전송 -->
+	<bean id="mapper"
+		class="org.mybatis.spring.mapper.MapperScannerConfigurer"
 		p:sqlSessionFactory-ref="ssf"
-		p:mapperInterface="com.sist.dao.MusicMapper"
+		p:basePackage="com.sist.dao"
 	/>
 </beans>
